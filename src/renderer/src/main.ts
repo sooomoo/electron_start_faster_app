@@ -10,5 +10,10 @@ setTimeout(() => {
   if (splashElem) {
     splashElem.style.display = "none";
   }
-}, 2000);
+}, 1000);
+// createApp(App).mount("#app");
+// const splashElem = document.getElementById("app-splash");
+// if (splashElem) {
+//   splashElem.style.display = "none";
+// }
 

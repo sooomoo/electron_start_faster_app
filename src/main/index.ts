@@ -20,7 +20,7 @@ if (!app.requestSingleInstanceLock()) {
 }
 
 interface WinAppearence {
-  backgroundColor: string;
+  // backgroundColor: string;
   titlebarSymbolColor: string;
 }
 
@@ -28,9 +28,9 @@ interface WinAppearence {
 // nativeTheme.themeSource = "dark";
 const getWinAppearence = (): WinAppearence => {
   if (nativeTheme.shouldUseDarkColors) {
-    return { backgroundColor: "#181818", titlebarSymbolColor: "#eee" };
+    return {  titlebarSymbolColor: "#eee" };
   }
-  return { backgroundColor: "#ffffff", titlebarSymbolColor: "#000000" };
+  return { titlebarSymbolColor: "#000000" };
 };
 
 function createWindow(): void {
@@ -42,15 +42,16 @@ function createWindow(): void {
     show: true,
     autoHideMenuBar: true,
     frame: false,
-    titleBarStyle: "hidden",
-    backgroundColor: appr.backgroundColor,
+    titleBarStyle:"hidden", 
+    // 设置了backgroundMaterial之后，最大化会有问题。但是启动时体验不错
+    // 并且窗口的阴影会被保留
+    backgroundMaterial: "mica", 
+    backgroundColor: "#0000",
     titleBarOverlay: {
       color: "#0000",
       symbolColor: appr.titlebarSymbolColor,
       height: 36,
     },
-    transparent: false,
-    backgroundMaterial: "none",
     trafficLightPosition: { x: 10, y: 10 },
     // ...(process.platform === "linux" ? { icon } : {}),
     webPreferences: {
@@ -69,7 +70,7 @@ function createWindow(): void {
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: ${appr.backgroundColor};
+        background-color: #0000;
         color: #f00;
         display: flex;
         justify-content: center;
@@ -106,8 +107,7 @@ function createWindow(): void {
   // })
 
   nativeTheme.on("updated", () => {
-    const ar = getWinAppearence();
-    mainWindow.setBackgroundColor(ar.backgroundColor);
+    const ar = getWinAppearence(); 
     if (process.platform === "win32") {
       mainWindow.setTitleBarOverlay({
         color: "#0000",

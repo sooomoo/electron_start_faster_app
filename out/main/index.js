@@ -11,9 +11,9 @@ if (!electron.app.requestSingleInstanceLock()) {
 }
 const getWinAppearence = () => {
   if (electron.nativeTheme.shouldUseDarkColors) {
-    return { backgroundColor: "#181818", titlebarSymbolColor: "#eee" };
+    return { titlebarSymbolColor: "#eee" };
   }
-  return { backgroundColor: "#ffffff", titlebarSymbolColor: "#000000" };
+  return { titlebarSymbolColor: "#000000" };
 };
 function createWindow() {
   const appr = getWinAppearence();
@@ -24,14 +24,14 @@ function createWindow() {
     autoHideMenuBar: true,
     frame: false,
     titleBarStyle: "hidden",
-    backgroundColor: appr.backgroundColor,
+    backgroundMaterial: "mica",
+    // 设置了backgroundMaterial之后，最大化会有问题。但是启动时体验不错
+    backgroundColor: "#0000",
     titleBarOverlay: {
       color: "#0000",
       symbolColor: appr.titlebarSymbolColor,
       height: 36
     },
-    transparent: false,
-    backgroundMaterial: "none",
     trafficLightPosition: { x: 10, y: 10 },
     // ...(process.platform === "linux" ? { icon } : {}),
     webPreferences: {
@@ -50,7 +50,7 @@ function createWindow() {
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: ${appr.backgroundColor};
+        background-color: #0000;
         color: #f00;
         display: flex;
         justify-content: center;
@@ -81,7 +81,6 @@ function createWindow() {
   }
   electron.nativeTheme.on("updated", () => {
     const ar = getWinAppearence();
-    mainWindow.setBackgroundColor(ar.backgroundColor);
     if (process.platform === "win32") {
       mainWindow.setTitleBarOverlay({
         color: "#0000",
