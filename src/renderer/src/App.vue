@@ -2,7 +2,7 @@
 import Versions from "./components/Versions.vue";
 // import { onMounted } from "vue";
 
-const ipcHandle = (): void => window.electron.ipcRenderer.send("ping");
+// const ipcHandle = (): void => window.electron.ipcRenderer.send("ping");
 
 // onMounted(() => {
 //   setTimeout(() => {
@@ -26,7 +26,7 @@ const ipcHandle = (): void => window.electron.ipcRenderer.send("ping");
 
 <style lang="css" scoped>
 .logo {
-  height: 200px; 
+  height: 200px;
   width: 200px;
 }
 
@@ -40,8 +40,9 @@ const ipcHandle = (): void => window.electron.ipcRenderer.send("ping");
   -webkit-app-region: drag;
   display: flex;
   align-items: center;
-  padding:0 12px ;
+  padding: 0 12px;
   z-index: 1;
+  background-color: antiquewhite;
 }
 
 .main {

@@ -32,7 +32,7 @@ function createWindow() {
     },
     transparent: false,
     backgroundMaterial: "none",
-    trafficLightPosition: { x: 20, y: 20 },
+    trafficLightPosition: { x: 10, y: 10 },
     // ...(process.platform === "linux" ? { icon } : {}),
     webPreferences: {
       preload: path.join(__dirname, "../preload/index.js"),
