@@ -1,0 +1,23 @@
+*,
+*::before,
+*::after {
+  font: inherit;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #181818; 
+}
+
+body {
+  height: 100vh;
+  line-height: 1.6;
+  font-family:"system-ui";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: white;
+}
