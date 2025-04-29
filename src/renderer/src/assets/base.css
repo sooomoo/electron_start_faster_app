@@ -1,38 +1,51 @@
- 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-primary: #0070f3;
-    --color-background: #181818;
-    --color-text: #ffffff;
-  }
-}
-@media (prefers-color-scheme: light) {
-  :root {
-    --color-primary: #0070f3;
-    --color-background: #ffffff;
-    --color-text: #000000; 
-  }
-}
-*,
-*::before,
-*::after {
-  font: inherit;
-  box-sizing: border-box;
-  margin: 0;
-}
+ @media (prefers-color-scheme: dark) {
+   :root {
+     --color-primary: #0070f3;
+     --color-background: #181818;
+     --color-text: #ffffff;
+   }
+ }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  background: var(--color-background); 
-}
+ @media (prefers-color-scheme: light) {
+   :root {
+     --color-primary: #0070f3;
+     --color-background: #ffffff;
+     --color-text: #000000;
+   }
+ }
 
-body {
-  height: 100vh;
-  line-height: 1.6;
-  font-family:"system-ui";
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: var(--color-text);
-}
+ *,
+ *::before,
+ *::after {
+   font: inherit;
+   box-sizing: border-box;
+   margin: 0;
+ }
+
+ @font-face {
+   font-family: HarmonyOSSans;
+   src: url('@assets/HarmonyOS_Sans.ttf');
+   font-display: swap;
+ }
+
+ html,
+ body {
+   margin: 0;
+   padding: 0;
+   background: var(--color-background);
+ }
+
+ body {
+   height: 100vh;
+   width: 100vw;
+   line-height: 1.35;
+   font-family: HarmonyOSSans, "system-ui", -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+   text-rendering: optimizeLegibility;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+   user-select: none;
+   text-rendering: optimizeLegibility;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+   color: var(--color-text);
+ }
