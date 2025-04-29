@@ -2,8 +2,21 @@
 const electron = require("electron");
 const path = require("path");
 const utils = require("@electron-toolkit/utils");
-const icon = path.join(__dirname, "../../resources/icon.png");
+process.on("uncaughtException", function(_err) {
+  console.error(_err);
+  electron.app.quit();
+});
+if (!electron.app.requestSingleInstanceLock()) {
+  electron.app.exit();
+}
+const getWinAppearence = () => {
+  if (electron.nativeTheme.shouldUseDarkColors) {
+    return { backgroundColor: "#181818", titlebarSymbolColor: "#eee" };
+  }
+  return { backgroundColor: "#ffffff", titlebarSymbolColor: "#000000" };
+};
 function createWindow() {
+  const appr = getWinAppearence();
   const mainWindow = new electron.BrowserWindow({
     width: 900,
     height: 670,
@@ -11,25 +24,23 @@ function createWindow() {
     autoHideMenuBar: true,
     frame: false,
     titleBarStyle: "hidden",
+    backgroundColor: appr.backgroundColor,
     titleBarOverlay: {
       color: "#0000",
-      symbolColor: "#eee",
+      symbolColor: appr.titlebarSymbolColor,
       height: 36
     },
-    backgroundColor: "#121212",
     transparent: false,
     backgroundMaterial: "none",
-    trafficLightPosition: {
-      x: 20,
-      y: 20
-    },
-    ...process.platform === "linux" ? { icon } : {},
+    trafficLightPosition: { x: 20, y: 20 },
+    // ...(process.platform === "linux" ? { icon } : {}),
     webPreferences: {
       preload: path.join(__dirname, "../preload/index.js"),
       sandbox: false,
       nodeIntegration: true,
       transparent: true,
-      defaultFontSize: 14
+      defaultFontSize: 14,
+      v8CacheOptions: "code"
     }
   });
   mainWindow.webContents.insertCSS(`
@@ -39,7 +50,7 @@ function createWindow() {
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: #121212;
+        background-color: ${appr.backgroundColor};
         color: #f00;
         display: flex;
         justify-content: center;
@@ -49,10 +60,36 @@ function createWindow() {
       }
     `);
   mainWindow.setIgnoreMouseEvents(true, { forward: true });
+  mainWindow.show();
   mainWindow.webContents.once("dom-ready", () => {
     mainWindow.setIgnoreMouseEvents(false);
   });
-  mainWindow.show();
+  if (process.platform === "win32") {
+    const WM_INITMENU = 278;
+    mainWindow.hookWindowMessage(WM_INITMENU, () => {
+      mainWindow.setEnabled(false);
+      mainWindow.setEnabled(true);
+    });
+    mainWindow.on(
+      "maximize",
+      () => mainWindow.webContents.send("on-win-max", true)
+    );
+    mainWindow.on(
+      "unmaximize",
+      () => mainWindow.webContents.send("on-win-max", false)
+    );
+  }
+  electron.nativeTheme.on("updated", () => {
+    const ar = getWinAppearence();
+    mainWindow.setBackgroundColor(ar.backgroundColor);
+    if (process.platform === "win32") {
+      mainWindow.setTitleBarOverlay({
+        color: "#0000",
+        symbolColor: ar.titlebarSymbolColor,
+        height: 36
+      });
+    }
+  });
   mainWindow.webContents.setWindowOpenHandler((details) => {
     electron.shell.openExternal(details.url);
     return { action: "deny" };
@@ -63,22 +100,23 @@ function createWindow() {
     mainWindow.loadFile(path.join(__dirname, "../renderer/index.html"));
   }
 }
-electron.app.requestSingleInstanceLock();
-electron.app.whenReady().then(() => {
-  utils.electronApp.setAppUserModelId("com.electron");
-  electron.app.on("browser-window-created", (_, window) => {
-    utils.optimizer.watchWindowShortcuts(window);
-  });
-  electron.ipcMain.on("ping", () => console.log("pong"));
-  createWindow();
-  electron.app.on("activate", function() {
-    if (electron.BrowserWindow.getAllWindows().length === 0) createWindow();
-  });
-});
 electron.app.on("second-instance", () => {
   if (electron.BrowserWindow.getAllWindows().length) {
     electron.BrowserWindow.getAllWindows()[0].focus();
   }
+});
+electron.app.whenReady().then(() => {
+  utils.electronApp.setAppUserModelId("com.electron");
+  electron.app.on("browser-window-created", (_, window) => {
+    utils.optimizer.watchWindowShortcuts(window);
+    utils.optimizer.registerFramelessWindowIpc();
+  });
+  createWindow();
+  electron.ipcMain.on("ping", () => console.log("pong"));
+  electron.Menu.setApplicationMenu(null);
+  electron.app.on("activate", function() {
+    if (electron.BrowserWindow.getAllWindows().length === 0) createWindow();
+  });
 });
 electron.app.on("render-process-gone", (_, webContents, details) => {
   console.log(details.reason);

@@ -1,3 +1,18 @@
+ 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primary: #0070f3;
+    --color-background: #181818;
+    --color-text: #ffffff;
+  }
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-primary: #0070f3;
+    --color-background: #ffffff;
+    --color-text: #000000; 
+  }
+}
 *,
 *::before,
 *::after {
@@ -9,7 +24,7 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: #181818; 
+  background: var(--color-background); 
 }
 
 body {
@@ -19,5 +34,5 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: white;
+  color: var(--color-text);
 }
