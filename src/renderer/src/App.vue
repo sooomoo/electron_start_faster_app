@@ -49,7 +49,6 @@ import Versions from "./components/Versions.vue";
   align-items: center;
   padding: 0 12px;
   z-index: 1;
-  background-color: antiquewhite;
 }
 
 .main {
