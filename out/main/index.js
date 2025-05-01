@@ -24,9 +24,12 @@ function createWindow() {
     autoHideMenuBar: true,
     frame: false,
     titleBarStyle: "hidden",
-    backgroundMaterial: "mica",
     // 设置了backgroundMaterial之后，最大化会有问题。但是启动时体验不错
+    // 并且窗口的阴影会被保留
+    backgroundMaterial: "mica",
     backgroundColor: "#0000",
+    vibrancy: "hud",
+    // 仅在 macOS 上可用
     titleBarOverlay: {
       color: "#0000",
       symbolColor: appr.titlebarSymbolColor,
@@ -40,7 +43,13 @@ function createWindow() {
       nodeIntegration: true,
       transparent: true,
       defaultFontSize: 14,
-      v8CacheOptions: "code"
+      v8CacheOptions: "code",
+      disableHtmlFullscreenWindowResize: true,
+      defaultFontFamily: {
+        standard: "MiSans",
+        serif: "serif",
+        sansSerif: "sans-serif"
+      }
     }
   });
   mainWindow.webContents.insertCSS(`

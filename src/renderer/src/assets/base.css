@@ -17,14 +17,27 @@
  *,
  *::before,
  *::after {
-   /* font: inherit; */
    box-sizing: border-box;
    margin: 0;
  }
+ @font-face {
+   font-family: "MiSans";
+   src: url('fonts/MiSans-Light.woff2') format('woff2');
+   font-weight: 300;
+   font-display: swap;
+ }
 
  @font-face {
-   font-family: "HarmonySans";
-   src: url('@assets/fonts/HarmonyOS_Sans.ttf');
+   font-family: "MiSans";
+   src: url('fonts/MiSans-Regular.woff2') format('woff2');
+   font-weight: 400;
+   font-display: swap;
+ }
+
+ @font-face {
+   font-family: "MiSans";
+   src: url('fonts/MiSans-Bold.woff2') format('woff2');
+   font-weight: 700;
    font-display: swap;
  }
 
@@ -39,7 +52,7 @@
    height: 100vh;
    width: 100vw;
    line-height: 1.35;
-   font-family: "HarmonySans", -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+   font-family: MiSans, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
    text-rendering: optimizeLegibility;
    -webkit-font-smoothing: antialiased;
    -moz-osx-font-smoothing: grayscale;
