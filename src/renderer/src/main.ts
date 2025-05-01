@@ -10,8 +10,8 @@ import App from "./App.vue";
 //   if (splashElem) {
 //     splashElem.style.display = "none";
 //   }
-// }, 1000);
-createApp(App).mount("#app");
+// }, 200);
+createApp(App).mount(document.body);
 const splashElem = document.getElementById("app-splash");
 if (splashElem) {
   splashElem.style.display = "none";
