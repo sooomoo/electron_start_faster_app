@@ -28,7 +28,7 @@ function createWindow() {
     // 并且窗口的阴影会被保留
     backgroundMaterial: "mica",
     backgroundColor: "#0000",
-    vibrancy: "hud",
+    vibrancy: "sidebar",
     // 仅在 macOS 上可用
     titleBarOverlay: {
       color: "#0000",
@@ -65,7 +65,8 @@ function createWindow() {
         justify-content: center;
         align-items: center;
         font-size: 100px;
-        z-index: 9999;
+        z-index: 9999; 
+        font-family: Inter, sans-serif;
       }
     `);
   mainWindow.setIgnoreMouseEvents(true, { forward: true });

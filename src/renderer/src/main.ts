@@ -28,6 +28,6 @@ if (splashElem) {
 
 const appElem = document.getElementById("app");
 if (appElem) {
-  appElem.style.transition = "opacity .5s ease";
+  appElem.style.transition = "opacity 1s ease";
   appElem.style.opacity = "1";
 }
