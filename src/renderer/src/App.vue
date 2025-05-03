@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Versions from "./components/Versions.vue";
+import TitleBar from "./components/TitleBar.vue";
 // import { onMounted } from "vue";
 
 // const ipcHandle = (): void => window.electron.ipcRenderer.send("ping");
@@ -15,9 +16,7 @@ import Versions from "./components/Versions.vue";
 </script>
 
 <template>
-  <header class="header">
-    <span>Title here</span>
-  </header>
+  <TitleBar />
   <main class="main">
     <img alt="logo" class="logo" src="./assets/electron.svg" />
     <Versions />
@@ -37,29 +36,15 @@ import Versions from "./components/Versions.vue";
   width: 200px;
 }
 
-.header {
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 36px;
-  -webkit-app-region: drag;
-  display: flex;
-  align-items: center;
-  padding: 0 12px;
-  z-index: 1;
-}
-
 .main {
   position: fixed;
   left: 0;
-  top: 36px;
+  top: var(--sz-titlebar-height);
   right: 0;
   bottom: 0;
-
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
+  padding: 16px;
 }
 </style>

@@ -1,7 +1,11 @@
+ :root {
+  --sz-titlebar-height: 36px;
+ }
+ 
  @media (prefers-color-scheme: dark) {
    :root {
      --color-primary: #0070f3;
-     --color-background: #181818;
+     --color-background: #181818c0;
      --color-text: #ffffff;
    }
  }
@@ -9,7 +13,7 @@
  @media (prefers-color-scheme: light) {
    :root {
      --color-primary: #0070f3;
-     --color-background: #ffffff;
+     --color-background: #ffffffa0;
      --color-text: #000000;
    }
  }
@@ -24,21 +28,21 @@
    font-family: "MiSans";
    src: url('fonts/MiSans-Light.woff2') format('woff2');
    font-weight: 300;
-   font-display: swap;
+   font-display: block;
  }
 
  @font-face {
    font-family: "MiSans";
    src: url('fonts/MiSans-Regular.woff2') format('woff2');
    font-weight: 400;
-   font-display: swap;
+   font-display: block;
  }
 
  @font-face {
    font-family: "MiSans";
    src: url('fonts/MiSans-Bold.woff2') format('woff2');
    font-weight: 700;
-   font-display: swap;
+   font-display: block;
  }
 
  html,
@@ -58,4 +62,5 @@
    -moz-osx-font-smoothing: grayscale;
    user-select: none; 
    color: var(--color-text);
+   background-color: var(--color-background);
  }
