@@ -61,7 +61,7 @@ function createWindow(): void {
       sandbox: false,
       nodeIntegration: true,
       transparent: true,
-      defaultFontSize: 14,
+      // defaultFontSize: 14,
       v8CacheOptions: "code",
       disableHtmlFullscreenWindowResize: true,
       defaultFontFamily: {

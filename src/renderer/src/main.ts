@@ -16,21 +16,23 @@ document.documentElement.setAttribute("data-theme", "dark");
 //     splashElem.style.display = "none";
 //   }
 // }, 200);
-createApp(App).mount("#app").$nextTick(() => {
-  const appElem = document.getElementById("app");
-  if (appElem) {
-    appElem.style.transition = "opacity .5s ease";
-    appElem.style.opacity = "1";
-  }
-  const splashElem = document.getElementById("app-splash");
-  if (splashElem) {
-    splashElem.style.transition = "opacity .5s ease";
-    splashElem.style.opacity = "0";
-    setTimeout(() => {
-      splashElem.remove();
-      if (appElem) {
-        appElem.removeAttribute("style");
-      }
-    }, 500);
-  }
-});
+createApp(App)
+  .mount("#app")
+  .$nextTick(() => {
+    const appElem = document.getElementById("app");
+    if (appElem) {
+      appElem.style.transition = "opacity .5s ease";
+      appElem.style.opacity = "1";
+    }
+    const splashElem = document.getElementById("app-splash");
+    if (splashElem) {
+      splashElem.style.transition = "opacity .5s ease";
+      splashElem.style.opacity = "0";
+      setTimeout(() => {
+        splashElem.remove();
+        if (appElem) {
+          appElem.removeAttribute("style");
+        }
+      }, 500);
+    }
+  });
