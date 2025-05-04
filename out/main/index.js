@@ -11,9 +11,9 @@ if (!electron.app.requestSingleInstanceLock()) {
 }
 const getWinAppearence = () => {
   if (electron.nativeTheme.shouldUseDarkColors) {
-    return { titlebarSymbolColor: "#eee" };
+    return { backgroundColor: "#181818", titlebarSymbolColor: "#eee" };
   }
-  return { titlebarSymbolColor: "#000000" };
+  return { backgroundColor: "#FFFFFF", titlebarSymbolColor: "#000000" };
 };
 function createWindow() {
   const appr = getWinAppearence();
@@ -27,7 +27,7 @@ function createWindow() {
     // 设置了backgroundMaterial之后，最大化会有问题。但是启动时体验不错
     // 并且窗口的阴影会被保留
     backgroundMaterial: "mica",
-    backgroundColor: "#0000",
+    backgroundColor: appr.backgroundColor,
     vibrancy: "sidebar",
     // 仅在 macOS 上可用
     titleBarOverlay: {
@@ -59,7 +59,7 @@ function createWindow() {
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: #0000;
+        background-color: ${appr.backgroundColor};
         color: #f00;
         display: flex;
         justify-content: center;
@@ -98,6 +98,7 @@ function createWindow() {
         height: 36
       });
     }
+    mainWindow.setBackgroundColor(ar.backgroundColor);
   });
   mainWindow.webContents.setWindowOpenHandler((details) => {
     electron.shell.openExternal(details.url);

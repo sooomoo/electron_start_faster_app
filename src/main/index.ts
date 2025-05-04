@@ -20,7 +20,7 @@ if (!app.requestSingleInstanceLock()) {
 }
 
 interface WinAppearence {
-  // backgroundColor: string;
+  backgroundColor: string;
   titlebarSymbolColor: string;
 }
 
@@ -28,9 +28,9 @@ interface WinAppearence {
 // nativeTheme.themeSource = "dark";
 const getWinAppearence = (): WinAppearence => {
   if (nativeTheme.shouldUseDarkColors) {
-    return { titlebarSymbolColor: "#eee" };
+    return { backgroundColor: "#181818", titlebarSymbolColor: "#eee" };
   }
-  return { titlebarSymbolColor: "#000000" };
+  return { backgroundColor: "#FFFFFF", titlebarSymbolColor: "#000000" };
 };
 
 function createWindow(): void {
@@ -46,7 +46,7 @@ function createWindow(): void {
     // 设置了backgroundMaterial之后，最大化会有问题。但是启动时体验不错
     // 并且窗口的阴影会被保留
     backgroundMaterial: "mica",
-    backgroundColor: "#0000",
+    backgroundColor: appr.backgroundColor,
     vibrancy: "sidebar", // 仅在 macOS 上可用
     titleBarOverlay: {
       color: "#0000",
@@ -77,7 +77,7 @@ function createWindow(): void {
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: #0000;
+        background-color: ${appr.backgroundColor};
         color: #f00;
         display: flex;
         justify-content: center;
@@ -123,6 +123,7 @@ function createWindow(): void {
         height: 36,
       });
     }
+    mainWindow.setBackgroundColor(ar.backgroundColor);
     // 不需要，web 那边有其他方式可以监听系统颜色变化
     // mainWindow.webContents.send(
     //   "on-theme-updated",
