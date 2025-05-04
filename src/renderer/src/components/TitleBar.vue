@@ -17,6 +17,7 @@
   -webkit-app-region: drag;
   display: flex;
   align-items: center;
+  padding: 0 12px;
   z-index: 1;
 }
 

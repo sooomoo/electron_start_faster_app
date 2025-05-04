@@ -24,10 +24,11 @@ function createWindow() {
     autoHideMenuBar: true,
     frame: false,
     titleBarStyle: "hidden",
-    // 设置了backgroundMaterial之后，最大化会有问题。但是启动时体验不错
-    // 并且窗口的阴影会被保留
-    backgroundMaterial: "mica",
+    // 设置了backgroundMaterial之后，最大化会有问题。但是启动时体验不错，并且窗口的阴影会被保留
+    // 此处设置是为了保留启动体验，在dom-ready之后，需要设置为none，否则窗口最大化会有问题
+    backgroundMaterial: "auto",
     backgroundColor: appr.backgroundColor,
+    transparent: false,
     vibrancy: "sidebar",
     // 仅在 macOS 上可用
     titleBarOverlay: {
@@ -73,6 +74,7 @@ function createWindow() {
   mainWindow.show();
   mainWindow.webContents.once("dom-ready", () => {
     mainWindow.setIgnoreMouseEvents(false);
+    mainWindow.setBackgroundMaterial("none");
   });
   if (process.platform === "win32") {
     const WM_INITMENU = 278;
@@ -91,6 +93,7 @@ function createWindow() {
   }
   electron.nativeTheme.on("updated", () => {
     const ar = getWinAppearence();
+    mainWindow.setBackgroundColor(ar.backgroundColor);
     if (process.platform === "win32") {
       mainWindow.setTitleBarOverlay({
         color: "#0000",
@@ -98,7 +101,6 @@ function createWindow() {
         height: 36
       });
     }
-    mainWindow.setBackgroundColor(ar.backgroundColor);
   });
   mainWindow.webContents.setWindowOpenHandler((details) => {
     electron.shell.openExternal(details.url);

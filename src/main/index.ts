@@ -43,10 +43,11 @@ function createWindow(): void {
     autoHideMenuBar: true,
     frame: false,
     titleBarStyle: "hidden",
-    // 设置了backgroundMaterial之后，最大化会有问题。但是启动时体验不错
-    // 并且窗口的阴影会被保留
-    backgroundMaterial: "mica",
+    // 设置了backgroundMaterial之后，最大化会有问题。但是启动时体验不错，并且窗口的阴影会被保留
+    // 此处设置是为了保留启动体验，在dom-ready之后，需要设置为none，否则窗口最大化会有问题
+    backgroundMaterial: "auto",
     backgroundColor: appr.backgroundColor,
+    transparent: false,
     vibrancy: "sidebar", // 仅在 macOS 上可用
     titleBarOverlay: {
       color: "#0000",
@@ -93,6 +94,7 @@ function createWindow(): void {
 
   mainWindow.webContents.once("dom-ready", () => {
     mainWindow.setIgnoreMouseEvents(false);
+    mainWindow.setBackgroundMaterial("none"); // 移除掉背景材质，否则最大化会有问题
   });
 
   if (process.platform === "win32") {
@@ -116,6 +118,7 @@ function createWindow(): void {
 
   nativeTheme.on("updated", () => {
     const ar = getWinAppearence();
+    mainWindow.setBackgroundColor(ar.backgroundColor);
     if (process.platform === "win32") {
       mainWindow.setTitleBarOverlay({
         color: "#0000",
@@ -123,7 +126,6 @@ function createWindow(): void {
         height: 36,
       });
     }
-    mainWindow.setBackgroundColor(ar.backgroundColor);
     // 不需要，web 那边有其他方式可以监听系统颜色变化
     // mainWindow.webContents.send(
     //   "on-theme-updated",
