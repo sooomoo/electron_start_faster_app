@@ -13,6 +13,9 @@
       "@renderer/*": [
         "src/renderer/src/*"
       ]
-    }
+    },
+    "types": ["vue"],
+    "moduleResolution": "node",
+    "esModuleInterop": true
   }
 }
